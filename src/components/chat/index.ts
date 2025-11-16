@@ -7,4 +7,7 @@ export * from "./MessageList";
 export * from "./TypingIndicator";
 export * from "./StreamingMessage";
 export * from "./ChatInput";
+export * from "./ChatHeader";
+export * from "./ChatContainer";
+export * from "./ChatBubble";
 
