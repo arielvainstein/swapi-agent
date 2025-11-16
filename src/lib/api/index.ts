@@ -10,4 +10,5 @@ export * from './starships';
 export * from './vehicles';
 export * from './films';
 export * from './species';
+export * from './dashboard';
 
