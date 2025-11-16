@@ -6,4 +6,5 @@ export * from "./ChatMessage";
 export * from "./MessageList";
 export * from "./TypingIndicator";
 export * from "./StreamingMessage";
+export * from "./ChatInput";
 
