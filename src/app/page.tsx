@@ -8,6 +8,8 @@ import { fetchDashboardStats } from "@/actions/dashboard-actions";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatsOverview } from "@/components/dashboard/StatsOverview";
 import { TopVehiclesCard } from "@/components/dashboard/TopVehiclesCard";
+import { DashboardActions } from "@/components/dashboard/DashboardActions";
+import { LastUpdated } from "@/components/dashboard/LastUpdated";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 
@@ -45,10 +47,16 @@ async function DashboardContent() {
 export default function DashboardPage() {
   return (
     <div className="container mx-auto p-6 space-y-8">
-      {/* Page Header */}
+      {/* Page Header with Actions */}
       <PageHeader
         title="Star Wars Galaxy Dashboard"
         description="Explore the complete SWAPI database with real-time statistics and rankings"
+        actions={
+          <div className="flex items-center gap-4">
+            <LastUpdated />
+            <DashboardActions />
+          </div>
+        }
       />
 
       {/* Dashboard Content with Loading State */}
