@@ -82,24 +82,12 @@ export function ChatContainer({
             <SuggestedPrompts onSelect={handleSelectPrompt} />
           </div>
         ) : (
-          /* Message List */
-          <>
-            <MessageList messages={messages} isLoading={isLoading} />
-            
-            {/* Streaming Message */}
-            {streamingMessage && (
-              <div className="px-4 pb-4">
-                <StreamingMessage streamableValue={streamingMessage} />
-              </div>
-            )}
-            
-            {/* Typing Indicator */}
-            {isLoading && !streamingMessage && (
-              <div className="px-4 pb-4">
-                <TypingIndicator />
-              </div>
-            )}
-          </>
+          /* Message List with streaming support */
+          <MessageList 
+            messages={messages} 
+            isLoading={isLoading}
+            streamingMessage={streamingMessage}
+          />
         )}
       </div>
 
