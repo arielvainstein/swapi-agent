@@ -31,12 +31,12 @@ export function VehicleCard({ item }: VehicleCardProps) {
 
   return (
     <Card
-      className="cursor-pointer transition-all hover:shadow-lg hover:border-primary/50"
+      className="cursor-pointer transition-all hover:shadow-lg hover:border-primary/50 py-4"
       onClick={() =>
         router.push(`/vehicles/${isStarship ? "starship" : "vehicle"}/${itemId}`)
       }
     >
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 pt-0">
         <div className="flex items-start gap-3">
           {/* Icon */}
           <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -60,7 +60,7 @@ export function VehicleCard({ item }: VehicleCardProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 pb-0">
         {/* Model */}
         {item.model !== "unknown" && (
           <div className="text-sm">

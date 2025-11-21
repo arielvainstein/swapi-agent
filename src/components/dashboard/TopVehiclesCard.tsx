@@ -33,14 +33,14 @@ export function TopVehiclesCard({ vehicles }: TopVehiclesCardProps) {
 
   if (vehicles.length === 0) {
     return (
-      <Card>
-        <CardHeader>
+      <Card className="py-4">
+        <CardHeader className="pt-0">
           <div className="flex items-center gap-2">
             <Trophy className="h-5 w-5 text-primary" />
             <CardTitle>Top 3 Vehicles</CardTitle>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pb-0">
           <p className="text-sm text-muted-foreground">
             No vehicle rankings available
           </p>
@@ -50,8 +50,8 @@ export function TopVehiclesCard({ vehicles }: TopVehiclesCardProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="py-4">
+      <CardHeader className="pt-0">
         <div className="flex items-center gap-2">
           <Trophy className="h-5 w-5 text-primary" />
           <CardTitle>Top 3 Vehicles & Starships</CardTitle>
@@ -60,7 +60,7 @@ export function TopVehiclesCard({ vehicles }: TopVehiclesCardProps) {
           Ranked by performance, capacity, and efficiency
         </p>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pb-0">
         {vehicles.map((vehicle, index) => (
           <div key={vehicle.id}>
             <div

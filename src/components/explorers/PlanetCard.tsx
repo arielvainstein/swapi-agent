@@ -30,10 +30,10 @@ export function PlanetCard({ planet }: PlanetCardProps) {
 
   return (
     <Card
-      className="cursor-pointer transition-all hover:shadow-lg hover:border-primary/50"
+      className="cursor-pointer transition-all hover:shadow-lg hover:border-primary/50 py-4"
       onClick={() => router.push(`/planets/${planetId}`)}
     >
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 pt-0">
         <div className="flex items-start gap-3">
           {/* Planet Icon */}
           <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -50,7 +50,7 @@ export function PlanetCard({ planet }: PlanetCardProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 pb-0">
         {/* Population */}
         {planet.population !== "unknown" && (
           <div className="flex items-center gap-2 text-sm">

@@ -273,25 +273,7 @@ export function PlanetDetails({ planet }: PlanetDetailsProps) {
         </InfoSection>
       </Card>
 
-      <Separator />
-
-      {/* Metadata */}
-      <Card className="p-4 bg-muted/30">
-        <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-          <div>
-            <span className="font-medium">Created:</span>{" "}
-            {new Date(planet.created).toLocaleDateString()}
-          </div>
-          <div>
-            <span className="font-medium">Last Modified:</span>{" "}
-            {new Date(planet.edited).toLocaleDateString()}
-          </div>
-          <div>
-            <span className="font-medium">URL:</span>{" "}
-            <code className="text-xs">{planet.url}</code>
-          </div>
-        </div>
-      </Card>
+      {/* Remove the Separator and Metadata Card sections */}
     </div>
   );
 }

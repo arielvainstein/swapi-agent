@@ -23,10 +23,10 @@ export function CharacterCard({ character }: CharacterCardProps) {
 
   return (
     <Card
-      className="cursor-pointer transition-all hover:shadow-lg hover:border-primary/50"
+      className="cursor-pointer transition-all hover:shadow-lg hover:border-primary/50 py-4"
       onClick={() => router.push(`/characters/${characterId}`)}
     >
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 pt-0">
         <div className="flex items-start gap-3">
           {/* Avatar */}
           <Avatar className="h-12 w-12">
@@ -50,7 +50,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 pb-0">
         {/* Birth Year */}
         {character.birth_year !== "unknown" && (
           <div className="flex items-center gap-2 text-sm">
