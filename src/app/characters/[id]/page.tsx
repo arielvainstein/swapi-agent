@@ -38,7 +38,9 @@ async function CharacterDetailContent({ id }: { id: string }) {
       {/* Page Header */}
       <PageHeader
         title={character!.name}
-        description={`Learn more about ${character!.name} from the Star Wars universe`}
+        description={`Learn more about ${
+          character!.name
+        } from the Star Wars universe`}
         backButton={{
           label: "Back to Characters",
           href: "/characters",
@@ -51,29 +53,27 @@ async function CharacterDetailContent({ id }: { id: string }) {
   );
 }
 
-export default function CharacterDetailPage({
+export default async function CharacterDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   return (
     <div className="container mx-auto p-6 space-y-8">
       {/* Character Content with Loading State */}
       <Suspense fallback={<LoadingState variant="page" />}>
-        <CharacterDetailContent id={params.id} />
+        <CharacterDetailContent id={id} />
       </Suspense>
     </div>
   );
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}) {
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const { id } = await params;
   try {
-    const character = await getPersonById(params.id);
+    const character = await getPersonById(id);
     return {
       title: `${character.name} | SWAPI Agent`,
       description: `Detailed information about ${character.name} from the Star Wars universe`,
@@ -85,4 +85,3 @@ export async function generateMetadata({
     };
   }
 }
-

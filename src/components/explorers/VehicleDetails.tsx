@@ -77,7 +77,7 @@ export function VehicleDetails({ item }: VehicleDetailsProps) {
     if (num === "unknown" || num === "n/a") return "Unknown";
     const parsed = parseInt(num.replace(/,/g, ""), 10);
     if (isNaN(parsed)) return num;
-    return parsed.toLocaleString();
+    return parsed.toString();
   };
 
   return (

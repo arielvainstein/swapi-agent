@@ -68,16 +68,17 @@ async function VehicleDetailContent({
   );
 }
 
-export default function VehicleDetailPage({
+export default async function VehicleDetailPage({
   params,
 }: {
-  params: { type: string; id: string };
+  params: Promise<{ type: string; id: string }>;
 }) {
+  const { type, id } = await params;
   return (
     <div className="container mx-auto p-6 space-y-8">
       {/* Vehicle Content with Loading State */}
       <Suspense fallback={<LoadingState variant="page" />}>
-        <VehicleDetailContent type={params.type} id={params.id} />
+        <VehicleDetailContent type={type} id={id} />
       </Suspense>
     </div>
   );
@@ -87,14 +88,15 @@ export default function VehicleDetailPage({
 export async function generateMetadata({
   params,
 }: {
-  params: { type: string; id: string };
+  params: Promise<{ type: string; id: string }>;
 }) {
+  const { type, id } = await params;
   try {
     let item: Vehicle | Starship;
-    if (params.type === "starship") {
-      item = await getStarshipById(params.id);
+    if (type === "starship") {
+      item = await getStarshipById(id);
     } else {
-      item = await getVehicleById(params.id);
+      item = await getVehicleById(id);
     }
     return {
       title: `${item.name} | SWAPI Agent`,
