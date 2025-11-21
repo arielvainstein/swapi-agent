@@ -75,7 +75,7 @@ export function PlanetDetails({ planet }: PlanetDetailsProps) {
     if (num === "unknown") return "Unknown";
     const parsed = parseInt(num, 10);
     if (isNaN(parsed)) return num;
-    return parsed.toLocaleString();
+    return parsed.toString();
   };
 
   // Helper to get climate badge colors

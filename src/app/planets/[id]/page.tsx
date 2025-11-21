@@ -51,16 +51,17 @@ async function PlanetDetailContent({ id }: { id: string }) {
   );
 }
 
-export default function PlanetDetailPage({
+export default async function PlanetDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   return (
     <div className="container mx-auto p-6 space-y-8">
       {/* Planet Content with Loading State */}
       <Suspense fallback={<LoadingState variant="page" />}>
-        <PlanetDetailContent id={params.id} />
+        <PlanetDetailContent id={id} />
       </Suspense>
     </div>
   );
@@ -70,10 +71,11 @@ export default function PlanetDetailPage({
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   try {
-    const planet = await getPlanetById(params.id);
+    const planet = await getPlanetById(id);
     return {
       title: `${planet.name} | SWAPI Agent`,
       description: `Detailed information about ${planet.name} from the Star Wars universe`,

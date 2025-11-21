@@ -108,7 +108,7 @@ export function TopVehiclesCard({ vehicles }: TopVehiclesCardProps) {
                     <p className="text-xs text-muted-foreground">Cargo</p>
                     <p className="font-medium">
                       {parseInt(vehicle.cargoCapacity) > 0
-                        ? `${parseInt(vehicle.cargoCapacity).toLocaleString()} kg`
+                        ? `${parseInt(vehicle.cargoCapacity).toString()} kg`
                         : "Unknown"}
                     </p>
                   </div>
