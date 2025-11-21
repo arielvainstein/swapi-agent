@@ -21,26 +21,6 @@ export const AI_CONFIG = {
 } as const;
 
 /**
- * Alternative model configurations
- * Uncomment to use different models
- */
-// export const AI_CONFIG = {
-//   model: openai('gpt-4o'), // More powerful, slower, more expensive
-//   temperature: 0.7,
-//   maxTokens: 2000,
-//   streamEnabled: true,
-// } as const;
-
-// Using Anthropic instead:
-// import { anthropic } from '@ai-sdk/anthropic';
-// export const AI_CONFIG = {
-//   model: anthropic('claude-3-5-sonnet-20241022'),
-//   temperature: 0.7,
-//   maxTokens: 2000,
-//   streamEnabled: true,
-// } as const;
-
-/**
  * System prompt for the AI agent
  * Defines the agent's role, knowledge, and behavior
  */

@@ -12,6 +12,10 @@ import { swapiTools } from "@/lib/ai/tools";
 
 /**
  * Message type for chat
+ * Learning notes: 
+ * - system role: app or system notifications.
+ * - user role: messages sent by the user like questions or commands.
+ * - assistant role: Responses from the AI agent.
  */
 export interface Message {
   role: "user" | "assistant" | "system";
@@ -28,11 +32,27 @@ export async function askAgent(
 ) {
   "use server";
 
+  // Validate AI configuration before proceeding
+  const configValidation = await validateAIConfig();
+  if (!configValidation.isValid) {
+    return {
+      output: null,
+      success: false,
+      error: configValidation.error || "AI configuration is invalid. Please check your API key.",
+    };
+  }
+
   try {
     // Create a streamable value for the response
     const stream = createStreamableValue("");
 
-    // Get context-aware system prompt
+    /**
+     * Learning notes: If no page context is provided, the AI agent
+     * will use the default system prompt.
+     * Sharing context between the AI agent and the user is important
+     * for the AI agent to understand the user's intent and provide 
+     * relevant information.
+     */
     const systemPrompt = pageContext
       ? getContextAwarePrompt(pageContext)
       : SYSTEM_PROMPT;
@@ -74,59 +94,6 @@ export async function askAgent(
     console.error("Error in askAgent:", error);
     return {
       output: null,
-      success: false,
-      error:
-        error instanceof Error
-          ? error.message
-          : "An unexpected error occurred. Please try again.",
-    };
-  }
-}
-
-/**
- * Generate a simple non-streaming response
- * Useful for non-interactive queries
- */
-export async function askAgentSimple(
-  query: string,
-  pageContext?: string
-): Promise<{ response: string; success: boolean; error?: string }> {
-  "use server";
-
-  try { 
-    const systemPrompt = pageContext
-      ? getContextAwarePrompt(pageContext)
-      : SYSTEM_PROMPT;
-
-    const result = await streamText({
-      model: AI_CONFIG.model,
-      temperature: AI_CONFIG.temperature,
-      maxTokens: AI_CONFIG.maxTokens,
-      system: systemPrompt,
-      messages: [
-        {
-          role: "user",
-          content: query,
-        },
-      ],
-      tools: swapiTools,
-      maxSteps: 5,
-    });
-
-    // Collect all text from stream
-    let fullText = "";
-    for await (const delta of result.textStream) {
-      fullText += delta;
-    }
-
-    return {
-      response: fullText,
-      success: true,
-    };
-  } catch (error) {
-    console.error("Error in askAgentSimple:", error);
-    return {
-      response: "",
       success: false,
       error:
         error instanceof Error
