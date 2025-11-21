@@ -28,6 +28,47 @@ export function AIChat() {
     return undefined;
   };
 
+  // Helper: Add message to chat
+  const addMessage = (message: ChatMessageProps) => {
+    setMessages((prev) => [...prev, message]);
+  };
+
+  // Helper: Add error message
+  const addErrorMessage = (content: string) => {
+    addMessage({
+      role: "error",
+      content,
+      timestamp: new Date(),
+    });
+  };
+
+  // Helper: Read stream and add final message
+  const handleStreamComplete = async (streamableValue: any) => {
+    try {
+      // Lazy import here avoid bundling server-only code into client bundle
+      const { readStreamableValue } = await import("ai/rsc");
+      let fullContent = "";
+
+      for await (const delta of readStreamableValue(streamableValue)) {
+        if (delta) {
+          fullContent += delta;
+        }
+      }
+
+      // Stream is complete, add the actual content to messages
+      addMessage({
+        role: "assistant",
+        content: fullContent,
+        timestamp: new Date(),
+      });
+      setStreamingMessage(null);
+    } catch (error) {
+      console.error("Error reading stream:", error);
+      addErrorMessage("Failed to read stream. Please try again.");
+      setStreamingMessage(null);
+    }
+  };
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -42,12 +83,11 @@ export function AIChat() {
 
   const handleSendMessage = async (content: string) => {
     // Add user message
-    const userMessage: ChatMessageProps = {
+    addMessage({
       role: "user",
       content,
       timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, userMessage]);
+    });
     setIsLoading(true);
 
     try {
@@ -64,47 +104,20 @@ export function AIChat() {
       );
 
       if (result.success && result.output) {
-        // Set streaming message
+        // Set streaming message and handle completion
         setStreamingMessage(result.output);
         setIsLoading(false);
-
-        // Note: The StreamingMessage component will handle reading the stream
-        // After streaming is complete, we should add it to messages
-        // For now, we'll add a placeholder that will be replaced
-        setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content: "Response received", // This will be updated by the streaming component
-              timestamp: new Date(),
-            },
-          ]);
-          setStreamingMessage(null);
-        }, 100);
+        handleStreamComplete(result.output);
       } else {
         setIsLoading(false);
-        // Add error message
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "error",
-            content: result.error || "Failed to get response. Please try again.",
-            timestamp: new Date(),
-          },
-        ]);
+        addErrorMessage(
+          result.error || "Failed to get response. Please try again."
+        );
       }
     } catch (error) {
       setIsLoading(false);
       console.error("Error sending message:", error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "error",
-          content: "An unexpected error occurred. Please try again.",
-          timestamp: new Date(),
-        },
-      ]);
+      addErrorMessage("An unexpected error occurred. Please try again.");
     }
   };
 
