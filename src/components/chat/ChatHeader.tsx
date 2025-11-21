@@ -6,7 +6,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { X, Minus, Trash2 } from "lucide-react";
+import { X, Minus } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -17,14 +17,12 @@ import {
 export interface ChatHeaderProps {
   onMinimize: () => void;
   onClose: () => void;
-  onClearHistory?: () => void;
   title?: string;
 }
 
 export function ChatHeader({
   onMinimize,
   onClose,
-  onClearHistory,
   title = "Star Wars AI Assistant",
 }: ChatHeaderProps) {
   return (
@@ -35,27 +33,6 @@ export function ChatHeader({
       </div>
 
       <div className="flex items-center gap-1">
-        {/* Clear History */}
-        {onClearHistory && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={onClearHistory}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Clear conversation</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
-
         {/* Minimize */}
         <TooltipProvider>
           <Tooltip>

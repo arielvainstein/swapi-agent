@@ -61,7 +61,6 @@ export function ChatContainer({
       <ChatHeader
         onMinimize={onMinimize}
         onClose={onClose}
-        onClearHistory={messages.length > 0 ? handleClearHistory : undefined}
         title={pageContext ? `AI Assistant - ${pageContext}` : "Star Wars AI Assistant"}
       />
 
