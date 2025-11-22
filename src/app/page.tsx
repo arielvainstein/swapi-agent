@@ -9,7 +9,6 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { StatsOverview } from "@/components/dashboard/StatsOverview";
 import { TopVehiclesCard } from "@/components/dashboard/TopVehiclesCard";
 import { DashboardActions } from "@/components/dashboard/DashboardActions";
-import { LastUpdated } from "@/components/dashboard/LastUpdated";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 
@@ -53,7 +52,6 @@ export default function DashboardPage() {
         description="Explore the complete SWAPI database with real-time statistics and rankings"
         actions={
           <div className="flex items-center gap-4">
-            <LastUpdated />
             <DashboardActions />
           </div>
         }
