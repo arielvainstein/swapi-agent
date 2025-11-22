@@ -5,7 +5,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Bot } from "lucide-react";
@@ -17,6 +17,7 @@ export interface StreamingMessageProps {
 
 export function StreamingMessage({ streamableValue }: StreamingMessageProps) {
   const [content, setContent] = useState("");
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -32,8 +33,19 @@ export function StreamingMessage({ streamableValue }: StreamingMessageProps) {
     })();
   }, [streamableValue]);
 
+  // Auto-scroll when content updates
+  useEffect(() => {
+    if (contentRef.current) {
+      // Find the scrollable parent container
+      const scrollContainer = contentRef.current.closest('[class*="overflow-y-auto"]') as HTMLElement;
+      if (scrollContainer) {
+        scrollContainer.scrollTop = scrollContainer.scrollHeight;
+      }
+    }
+  }, [content]);
+
   return (
-    <div className="flex gap-3 mb-4">
+    <div ref={contentRef} className="flex gap-3 mb-4">
       {/* Avatar */}
       <Avatar className="h-8 w-8 mt-1">
         <AvatarFallback className="bg-muted text-muted-foreground">
