@@ -80,6 +80,17 @@ export function VehicleDetails({ item }: VehicleDetailsProps) {
     return parsed.toString();
   };
 
+  // Helper to get the class name
+  const getVehicleClass = (): string => {
+    if (isStarship && "starship_class" in item) {
+      return item.starship_class;
+    }
+    if (!isStarship && "vehicle_class" in item) {
+      return item.vehicle_class;
+    }
+    return "Unknown Class";
+  };
+
   return (
     <div className="space-y-6">
       {/* Header Card */}
@@ -110,7 +121,7 @@ export function VehicleDetails({ item }: VehicleDetailsProps) {
                 >
                   {isStarship ? "Starship" : "Vehicle"}
                 </Badge>
-                <Badge variant="outline">{item.vehicle_class || "Unknown Class"}</Badge>
+                <Badge variant="outline">{getVehicleClass()}</Badge>
               </div>
             </div>
 
