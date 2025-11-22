@@ -50,11 +50,6 @@ export default function DashboardPage() {
       <PageHeader
         title="Star Wars Galaxy Dashboard"
         description="Explore the complete SWAPI database with real-time statistics and rankings"
-        actions={
-          <div className="flex items-center gap-4">
-            <DashboardActions />
-          </div>
-        }
       />
 
       {/* Dashboard Content with Loading State */}

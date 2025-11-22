@@ -16,14 +16,12 @@ interface BackButton {
 export interface PageHeaderProps {
   title: string;
   description?: string;
-  actions?: React.ReactNode;
   backButton?: BackButton;
 }
 
 export function PageHeader({
   title,
   description,
-  actions,
   backButton,
 }: PageHeaderProps) {
   return (
@@ -46,7 +44,6 @@ export function PageHeader({
             <p className="text-muted-foreground">{description}</p>
           )}
         </div>
-        {actions && <div className="flex items-center gap-2">{actions}</div>}
       </div>
       <Separator />
     </div>
