@@ -56,7 +56,7 @@ export function ChatContainer({
   if (!isOpen) return null;
 
   return (
-    <Card className="fixed bottom-4 right-4 w-[400px] h-[600px] flex flex-col shadow-2xl z-50 md:w-[450px] md:h-[650px]">
+    <Card className="fixed inset-4 w-auto h-[calc(100vh-2rem)] flex flex-col shadow-2xl z-50 md:inset-auto md:bottom-4 md:right-4 md:left-auto md:w-[450px] md:h-[650px]">
       {/* Header */}
       <ChatHeader
         onMinimize={onMinimize}
