@@ -11,12 +11,13 @@ import { ChatBubble, ChatContainer } from "@/components/chat";
 import type { ChatMessageProps } from "@/components/chat/ChatMessage";
 import { askAgent } from "@/actions/chat-actions";
 import { usePathname } from "next/navigation";
+import { StreamableValue } from "ai/rsc";
 
 export function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessageProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [streamingMessage, setStreamingMessage] = useState<any>(null);
+  const [streamingMessage, setStreamingMessage] = useState<StreamableValue<string> | null>(null);
   const pathname = usePathname();
 
   // Get page context for AI
@@ -43,7 +44,7 @@ export function AIChat() {
   };
 
   // Helper: Read stream and add final message
-  const handleStreamComplete = async (streamableValue: any) => {
+  const handleStreamComplete = async (streamableValue: StreamableValue<string>) => {
     try {
       // Lazy import here avoid bundling server-only code into client bundle
       const { readStreamableValue } = await import("ai/rsc");
@@ -136,7 +137,7 @@ export function AIChat() {
         messages={messages}
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
-        streamingMessage={streamingMessage}
+        streamingMessage={streamingMessage ?? undefined}
         pageContext={getPageContext()}
       />
     </>

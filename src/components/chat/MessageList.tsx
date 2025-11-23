@@ -9,11 +9,12 @@ import { useEffect, useRef } from "react";
 import { ChatMessage, type ChatMessageProps } from "./ChatMessage";
 import { Loader } from "lucide-react";
 import { StreamingMessage } from "./StreamingMessage";
+import { StreamableValue } from "ai/rsc";
 
 export interface MessageListProps {
   messages: ChatMessageProps[];
   isLoading?: boolean;
-  streamingMessage?: any; // Streamable value
+  streamingMessage?: StreamableValue<string>; // Streamable value
 }
 
 export function MessageList({ 
