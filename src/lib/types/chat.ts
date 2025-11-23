@@ -37,7 +37,7 @@ export interface ChatState {
 // Tool call result
 export interface ToolCallResult {
   toolName: string;
-  result: any;
+  result: unknown;
   success: boolean;
   error?: string;
 }

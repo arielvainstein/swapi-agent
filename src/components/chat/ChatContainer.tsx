@@ -11,9 +11,8 @@ import { ChatHeader } from "./ChatHeader";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
 import { SuggestedPrompts } from "@/components/shared/SuggestedPrompts";
-import { StreamingMessage } from "./StreamingMessage";
-import { TypingIndicator } from "./TypingIndicator";
 import type { ChatMessageProps } from "./ChatMessage";
+import { StreamableValue } from "ai/rsc";
 
 export interface ChatContainerProps {
   isOpen: boolean;
@@ -22,7 +21,7 @@ export interface ChatContainerProps {
   messages: ChatMessageProps[];
   onSendMessage: (message: string) => void;
   isLoading?: boolean;
-  streamingMessage?: any; // Streamable value
+  streamingMessage?: StreamableValue<string>; // Streamable value
   pageContext?: string;
 }
 

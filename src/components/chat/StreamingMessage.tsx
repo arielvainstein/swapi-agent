@@ -9,10 +9,10 @@ import { useEffect, useState, useRef } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Bot } from "lucide-react";
-import { readStreamableValue } from "ai/rsc";
+import { readStreamableValue, StreamableValue } from "ai/rsc";
 
 export interface StreamingMessageProps {
-  streamableValue: any; // Streamable value from server action
+  streamableValue: StreamableValue<string>; // Streamable value from server action
 }
 
 export function StreamingMessage({ streamableValue }: StreamingMessageProps) {
